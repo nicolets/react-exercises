@@ -3,6 +3,8 @@ import './President.css';
 
 function President() {
 
+	const [fullName, setFullName] = useState(null);
+
 	const [presidents] = useState([
 		{
 			firstName: 'Bill',
@@ -26,11 +28,11 @@ function President() {
 			<p>When clicking on a president, display his <strong>full</strong> name below.</p>
 			<div className="president-list">
 				{presidents.map((president, index) => {
-					return <img key={index} src={require('./images/' + president.image).default} alt="" />
+					return <img key={index} src={require('./images/' + president.image).default} alt="" onClick={() => setFullName(president.firstName + ' ' + president.lastName)} />
 				})}
 			</div>
 			<div>
-				<strong>You selected: </strong> Full name here
+				<strong>You selected: </strong> {fullName}
 			</div>
 		</div>
 	);

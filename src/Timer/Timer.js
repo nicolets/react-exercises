@@ -1,7 +1,20 @@
-import React from 'react';
+
+import React, {useEffect, useState} from 'react';
 import './Timer.css';
 
 function Timer() {
+
+	const [seconds, setSeconds] = useState(0);
+	const [isPaused, setIsPaused] = useState(true);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if(!isPaused) {
+				setSeconds(sec => sec + 1)
+			}
+		}, 1000)
+			return () => clearInterval(interval)
+		}, [isPaused])
 
 	return (
 		<div className="Timer">
@@ -12,11 +25,11 @@ function Timer() {
 				<li><b>Reset:</b> should set the timer to 0</li>
 			</ul>
 			<div className="Timer__actions">
-				<button>Play</button>
-				<button>Pause</button>
-				<button>Reset</button>
+				<button onClick={() => {setIsPaused(false)}}>Play</button>
+				<button onClick={() => {setIsPaused(true)}}>Pause</button>
+				<button onClick={() => {setSeconds(0)}}>Reset</button>
 			</div>
-			<div className="Timer__value">0</div>
+			<div className="Timer__value">{seconds}</div>
 		</div>
 	);
 }
